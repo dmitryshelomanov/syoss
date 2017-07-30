@@ -31,6 +31,10 @@ class ViewController extends Controller
         return $this->photo->where([
             ['user_id', $this->request->user()->id],
             ['week', $week]
-        ])->get(['link']);
+        ])
+        ->with(['battle' => function($q) {
+            $q->select('id', 'photo_id');
+        }])
+        ->get(['id', 'link']);
     }
 }

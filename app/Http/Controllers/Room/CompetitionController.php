@@ -30,6 +30,10 @@ class CompetitionController extends Controller
         return $this->photo->where([
             ['user_id', $this->request->user()->id],
             ['week', DateHelper::currentStep()]
-        ])->get(['id', 'link']);
+        ])
+        ->with(['battle' => function($q) {
+            $q->select('id', 'photo_id', 'publish');
+        }])
+        ->get(['id', 'link']);
     }
 }

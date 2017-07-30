@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Gallery;
 
-use App\Models\Photo;
+use App\Models\Battle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use DateHelper;
 
 class GalleryController extends Controller
 {
     private
-        $photo,
+        $battle,
         $request;
 
-    public function __construct(Photo $photo, Request $request)
+    public function __construct(Battle $battle, Request $request)
     {
-        $this->photo = $photo;
+        $this->battle = $battle;
         $this->request = $request;
     }
 
@@ -25,12 +26,18 @@ class GalleryController extends Controller
      */
     public function allPhoto()
     {
-        return $this->photo
-            ->with(['likes' => function($q) {
-                $q->select('photo_id', 'user_id')
-                  ->where('user_id', Auth::user() ? Auth::user()->id : 0);
+        return $this->battle
+            ->with(['photo' => function($q) {
+                $q->with(['likes' => function($q) {
+                    $q->select('id', 'photo_id', 'user_id')
+                      ->where('user_id', Auth::user() ? Auth::user()->id : 0);
+                }])
+                ->withCount('likeCount');
             }])
-            ->withCount('likeCount')
+            ->where([
+                ['week', DateHelper::currentStep()],
+                ['publish', 2]
+            ])
             ->get();
     }
 

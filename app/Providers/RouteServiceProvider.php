@@ -42,6 +42,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSocialRoutes();
 
         $this->mapRoomRoutes();
+
+        $this->mapAdminRoutes();
     }
 
     /**
@@ -93,5 +95,16 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'auth', 'start'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/room.php'));
+    }
+
+    /**
+     * роуты для админки
+     */
+    protected function mapAdminRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware(['web', 'auth', 'Admin'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/admin.php'));
     }
 }

@@ -971,3 +971,7 @@ a {
 .bg-danger {
     background: #f2dede
 }
+.message-moderate {
+    position: absolute;
+    margin: 25px 0;
+}

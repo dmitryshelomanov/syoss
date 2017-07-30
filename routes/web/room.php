@@ -22,3 +22,6 @@ Route::get('/check', function () {
 
 // загрузить фото
 Route::post('/photo/upload', 'Upload\PhotoUploadController@upload');
+
+// загрузить чек
+Route::post('/check/upload', 'Upload\CheckUploadController@upload');

@@ -9,13 +9,11 @@ use App\Models\Likes;
 
 class LikesController extends Controller
 {
-    private $photo;
     private $request;
     private $likes;
 
-    public function __construct(Photo $photo, Request $request, Likes $likes)
+    public function __construct(Request $request, Likes $likes)
     {
-        $this->photo = $photo;
         $this->request = $request;
         $this->likes = $likes;
     }
@@ -29,7 +27,7 @@ class LikesController extends Controller
      */
     public function policy($type, $user, $photo_id)
     {
-        $result = policy($this->photo)->$type(
+        $result = policy($this->likes)->$type(
             $user, $photo_id
         );
         if ($this->request->ajax() && $result) {

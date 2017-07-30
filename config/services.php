@@ -53,4 +53,10 @@ return [
         'client_secret' => env('FACEBOOK_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT_URI'),
     ],
+
+    'moderate' => [
+        'Заявка рассматривается',
+        'Заявка отклонена',
+        'принимает участие в битве'
+    ]
 ];

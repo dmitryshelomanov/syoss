@@ -59,4 +59,9 @@ $(document).ready(function () {
         })
     });
 
+    $('#capture').on('click', function(e){
+        e.preventDefault();
+        $('#files')[0].click();
+    });
+
 });

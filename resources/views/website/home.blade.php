@@ -2,7 +2,7 @@
 
 @section('content')
 <div id="fullpage">
-    <div class="section" id="section0">
+    <div class="section active" id="section0">
         <section>
             <div class="container-flex full-size">
                 <div class="slide1 column-xs">
@@ -174,7 +174,7 @@
                 </div>
         </section>
     </div>
-    <div class="section active" id="section3">
+    <div class="section" id="section3">
         <section>
             <div class="container-flex flex-center column-xs">
                 <div class="promo">

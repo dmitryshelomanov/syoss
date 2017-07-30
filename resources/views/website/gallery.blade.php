@@ -27,10 +27,8 @@
         <div class="item-wrapper wrap">
             @foreach($photo as $item)
                 <div class="item">
-                    <img src="{{ asset($item->link) }}">
-                    <div class="play">
-                        <i class="fa fa-play fa-2x"></i>
-                    </div>
+                    <img src="{{ asset('img/syoss.png') }}" class="fight-flag">
+                    <img src="{{ asset($item->photo->link) }}">
                     <div class="social">
                         <i class="fa fa-vk fw"></i>
                         <i class="fa fa-odnoklassniki fw"></i>

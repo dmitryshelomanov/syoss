@@ -17,6 +17,9 @@
             @foreach($photo as $item)
                 <div class="item">
                     <img src="{{ asset($item->link) }}">
+                    @if($item->battle)
+                        <img src="{{ asset('img/syoss.png') }}" class="fight-flag">
+                    @endif
                 </div>
             @endforeach
             @for($i = count($photo); $i < 4; $i++)

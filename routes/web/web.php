@@ -39,5 +39,9 @@ Route::middleware('guest')->group(function() {
         echo 'для доступа в этот раздел нужна авторизация';
     })->name('login');
 
+    // страница логина админа
+    Route::get('admin/login', function() {
+        return view('admin.login');
+    });
 });
 

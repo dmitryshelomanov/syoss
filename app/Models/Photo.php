@@ -26,6 +26,7 @@ class Photo extends Model
     {
         return $this->hasMany('App\Models\Likes');
     }
+
     /**
      * @param $value
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -34,8 +35,8 @@ class Photo extends Model
     public function getLastPhoto($value)
     {
         return $this->orderBy('created_at')
-                    ->limit($value)
-                    ->get();
+            ->limit($value)
+            ->get();
     }
 
     /**
@@ -63,5 +64,15 @@ class Photo extends Model
             ['user_id', $user_id],
             ['week', DateHelper::currentStep()]
         ])->count();
+    }
+
+    public function battle()
+    {
+        return $this->hasOne('App\Models\Battle');
+    }
+
+    public function check()
+    {
+        return $this->hasOne('App\Models\Check');
     }
 }
