@@ -81,7 +81,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapSocialRoutes()
     {
         Route::prefix('social')
-            ->middleware(['web', 'start'])
+            ->middleware(['web'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/social.php'));
     }

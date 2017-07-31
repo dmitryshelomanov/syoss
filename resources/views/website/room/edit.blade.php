@@ -24,7 +24,7 @@
                 <div>
                     <img id="image" class="canvas">
                     <div class="hidden">
-                        <input type="file" id="files">
+                        <input type="file" id="edit">
                     </div>
                 </div>
                 <div class="control">
@@ -49,7 +49,7 @@
                         </button>
                     </div>
                     <div class="group">
-                        <button class="standart" id="capture">
+                        <button class="standart" id="capture-edit">
                             <span>загрузить фото</span>
                         </button>
                     </div>

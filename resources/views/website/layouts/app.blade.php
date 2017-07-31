@@ -17,7 +17,7 @@
     <script src="{{ asset('js/cropper.js') }}"></script>
 </head>
 <body>
-
+@include('website.common.loader')
 @include('website.common.header')
 
 @yield('content')

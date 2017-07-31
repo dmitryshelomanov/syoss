@@ -75,4 +75,9 @@ class Photo extends Model
     {
         return $this->hasOne('App\Models\Check');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\Users\User');
+    }
 }

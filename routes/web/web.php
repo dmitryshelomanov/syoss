@@ -2,9 +2,7 @@
 Route::middleware('start')->group(function() {
 
     // главная
-    Route::get('/', function () {
-        return view('website.home');
-    });
+    Route::get('/', 'Home\HomeController@show');
 
     // галлерея
     Route::get('/gallery', 'Gallery\GalleryController@show')->name('gallery');
@@ -20,6 +18,8 @@ Route::middleware('start')->group(function() {
         Route::post('/unSetLike', 'Likes\LikesController@unSetLike');
     });
 
+    Route::get('/resize', 'ResizeController@resize')->name('resize');
+
 });
 
 // страница ожидания
@@ -33,7 +33,6 @@ Route::get('/close', function () {
 });
 
 Route::middleware('guest')->group(function() {
-
     // страница аворизации
     Route::get('/login', function () {
         echo 'для доступа в этот раздел нужна авторизация';
@@ -45,3 +44,6 @@ Route::middleware('guest')->group(function() {
     });
 });
 
+Route::get('share', function() {
+    return view('website.shared');
+});

@@ -3,7 +3,7 @@ $(document).ready(function() {
     if ($('#animation')[0]) {
 
         var image = document.querySelector("#image");
-        var files = document.querySelector("#files");
+        var files = document.querySelector("#edit");
         var cropper;
         var reader;
 
@@ -39,15 +39,16 @@ $(document).ready(function() {
             $('.cropper-center').css({'background': 'url('+ $('#animation option:checked').val() +')'});
         });
 
-        $('#capture').on('click', function(e){
+        $('#capture-edit').on('click', function(e){
             e.preventDefault();
-            $('#files')[0].click();
+            files.click();
         });
 
         $('#upload').on('click', function () {
             if (!cropper) {
                 return;
             }
+            $('.preloader').show();
             cropper
                 .getCroppedCanvas({
                     width: 600,
@@ -65,7 +66,7 @@ $(document).ready(function() {
                         processData: false,
                         contentType: false,
                         success: function (data) {
-                            console.log('Upload success', data);
+                            window.location.href = '/room/view';
                         },
                         error: function () {
                             console.log('Upload error');

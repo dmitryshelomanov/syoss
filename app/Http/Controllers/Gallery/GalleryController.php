@@ -32,6 +32,9 @@ class GalleryController extends Controller
                     $q->select('id', 'photo_id', 'user_id')
                       ->where('user_id', Auth::user() ? Auth::user()->id : 0);
                 }])
+                ->with(['user' => function($q) {
+                    $q->select('id', 'uid', 'provider');
+                }])
                 ->withCount('likeCount');
             }])
             ->where([

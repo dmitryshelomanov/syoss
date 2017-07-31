@@ -3,7 +3,7 @@
 @section('content')
     @include('admin.common.header')
     <div class="container-flex flex-center ">
-        <div class="photo-items">
+        <div class="photo-items margin-top">
             @foreach($photo as $item)
                 <div class="item">
                     <img src="{{ asset($item->photo->link) }}">

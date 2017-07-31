@@ -27,12 +27,18 @@
         <div class="item-wrapper wrap">
             @foreach($photo as $item)
                 <div class="item">
-                    <img src="{{ asset('img/syoss.png') }}" class="fight-flag">
-                    <img src="{{ asset($item->photo->link) }}">
+                    <div class="play">
+                        <i class="fa fa-play fa-2x popupShow" onclick="popup('{{ $item->photo->link }}', {{ $item->photo->like_count_count }})"></i>
+                    </div>
+                    <img src="{{ route('resize', ['link' => $item->photo->link, 'x' => 225, 'y' => 225]) }}">
                     <div class="social">
-                        <i class="fa fa-vk fw"></i>
+                        <a href="https://vk.com/share.php?url={{env('APP_URL')}}gallery&title=Заголовок&image={{ env('APP_URL').$item->photo->link }}" target="_blank">
+                            <i class="fa fa-vk fw"></i>
+                        </a>
                         <i class="fa fa-odnoklassniki fw"></i>
-                        <i class="fa fa-facebook fw"></i>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{env('APP_URL')}}gallery&title=Заголовок&src={{ env('APP_URL').$item->photo->link }}" target="_blank">
+                            <i class="fa fa-facebook fw"></i>
+                        </a>
                         @include('website.common.likesBlock')
                     </div>
                 </div>
@@ -40,22 +46,5 @@
         </div>
     </div>
 
-    {{--<div class="popup-wrapper">--}}
-        {{--<div class="popup-inner">--}}
-            {{--<div class="close">--}}
-                {{--<i class="fa fa-close fa-2x"></i>--}}
-            {{--</div>--}}
-            {{--<img src="img/popup.png" alt="">--}}
-            {{--<div class="popup-footer">--}}
-                {{--<div>--}}
-                    {{--<i class="fa fa-vk fa-2x"></i>--}}
-                    {{--<i class="fa fa-odnoklassniki fa-2x"></i>--}}
-                    {{--<i class="fa fa-facebook fa-2x"></i>--}}
-                {{--</div>--}}
-                {{--<div>--}}
-                    {{--<i class="fa fa-heart fa-2x"></i> <span>лайк 24 </span>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+    @include('website.common.popup')
 @endsection

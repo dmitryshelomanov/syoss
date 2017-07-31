@@ -22,7 +22,7 @@ class LikesController extends Controller
      * @param $type
      * @param $user
      * @param $photo_id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|bool
      * юзаем политику для проверки возможно поставить лайк и на оборот
      */
     public function policy($type, $user, $photo_id)
@@ -31,8 +31,9 @@ class LikesController extends Controller
             $user, $photo_id
         );
         if ($this->request->ajax() && $result) {
-            return response()->json('likes is set', 201);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -41,9 +42,12 @@ class LikesController extends Controller
      */
     public function setLike()
     {
-        $this->policy(
+        $policy = $this->policy(
             'setLike', $this->request->user(), $this->request->photo_id
         );
+        if (!$policy) {
+            return response()->json('you does not execute this action', 201);
+        }
         $like = $this->likes->setLike(
             $this->request->user()->id,
             $this->request->photo_id
@@ -60,9 +64,12 @@ class LikesController extends Controller
      */
     public function unSetLike()
     {
-        $this->policy(
+        $policy = $this->policy(
             'unSetLike', $this->request->user(), $this->request->photo_id
         );
+        if (!$policy) {
+            return response()->json('you does not execute this action', 201);
+        }
         $like = $this->likes->unSetLike(
             $this->request->user()->id,
             $this->request->photo_id

@@ -14,6 +14,7 @@
 
     <div class="container-flex flex-center">
         <div class="item-wrapper wrap">
+            @php $param = 0; @endphp
             @foreach($photo as $item)
                 <div class="item">
                     <img src="{{ asset($item->link) }}">
@@ -21,13 +22,24 @@
                         <img src="{{ asset('img/syoss.png') }}" class="fight-flag">
                     @endif
                 </div>
+                @php
+                    if (isset($item->battle)) {
+                        $param = 1;
+                    }
+                @endphp
             @endforeach
             @for($i = count($photo); $i < 4; $i++)
-                <div class="item upload-more">
-                    <a href="{{ route('edit') }}">
-                        <img src="{{ asset('img/upload.png') }}">
-                    </a>
-                </div>
+                @if($param === 0)
+                    <div class="item upload-more">
+                        <a href="{{ route('edit') }}">
+                            <img src="{{ asset('img/upload.png') }}">
+                        </a>
+                    </div>
+                @else
+                    <div class="item upload-more">
+                        <img src="{{ asset('img/notupload.png') }}">
+                    </div>
+                @endif
             @endfor
         </div>
     </div>

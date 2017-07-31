@@ -8,7 +8,7 @@ var checksize = function () {
     // }
 };
 
-function setLike(url, photo_id) {
+function setLike(url, photo_id, cb) {
 
     $.ajax({
         url: url,
@@ -17,11 +17,86 @@ function setLike(url, photo_id) {
             photo_id: photo_id
         },
         success: function(data) {
-            console.log(data)
+            cb();
         },
         error: function() {
             console.log('error')
         }
+    });
+
+};
+
+function popup(photo, like) {
+    $('.popup-wrapper').removeClass('popup');
+    $('like').html(like);
+    $('#popupImg').attr('src', photo);
+    $('#vk').attr('href', 'https://vk.com/share.php?url=http://syossdev.soc-app.ru/gallery&title=Заголовок&image=http://syossdev.soc-app.ru/'+ photo);
+    $('#fb').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=http://syossdev.soc-app.ru/gallery&title=Заголовок&src=http://syossdev.soc-app.ru/'+ photo);
+};
+
+// function addLike() {
+//
+//     $('.preloader').show();
+//     var self = $(this);
+//     var unSet = $('#unSetLike');
+//     var text = self.children('like').text();
+//     setLike($(this).data().url, $(this).data().photo_id, function() {
+//         console.log('set like');
+//         self.css({'display': 'none'});
+//         unSet.css({'display': 'block'});
+//         self.children('like').html(parseInt(text) + 1);
+//         unSet.children('like').html(parseInt(text) + 1);
+//         $('.preloader').hide();
+//     });
+//
+// };
+
+function addLike(photo_id, self) {
+
+    var unset = $('#unSetLike' + photo_id);
+    var set = $('#setLike' + photo_id);
+    var text = set.children('like').text();
+
+    $('.preloader').show();
+    setLike('/setLike', photo_id, function() {
+        set
+            .hide()
+            .children('like')
+            .html(
+                parseInt(text + 1)
+            );
+        unset
+            .show()
+            .children('like')
+            .html(
+                parseInt(text + 1)
+            );
+        $('.preloader').hide();
+    });
+
+};
+
+function removeLike(photo_id) {
+
+    var unset = $('#unSetLike' + photo_id);
+    var set = $('#setLike' + photo_id);
+    var text = set.children('like').text();
+
+    $('.preloader').show();
+    setLike('/unSetLike', photo_id, function() {
+        set
+            .show()
+            .children('like')
+            .html(
+                parseInt(text - 1)
+            );
+        unset
+            .hide()
+            .children('like')
+            .html(
+                parseInt(text - 1)
+            );
+        $('.preloader').hide();
     });
 
 };
@@ -57,6 +132,10 @@ $(document).ready(function () {
                 i1.show(); i2.hide();
             }
         })
+    });
+
+    $('#popupHide').on('click', function() {
+        $('.popup-wrapper').addClass('popup');
     });
 
     $('#capture').on('click', function(e){

@@ -13,9 +13,11 @@
                         выграйте имидж-book <br>
                         и шоппинг!*
                     </div>
-                    <button class="standart">
-                        <span>загрузите фото</span>
-                    </button>
+                    <a href="{{ route('edit') }}">
+                        <button class="standart">
+                            <span>загрузите фото</span>
+                        </button>
+                    </a>
                 </div>
             </div>
             <footer>
@@ -81,9 +83,27 @@
                                     <i class="fa fa-play fa-2x"></i>
                                 </div>
                             </div>
-                            <div class="item item-large pesent-width"></div>
-                            <div class="item item-large pesent-width"></div>
-                            <div class="item item-large pesent-width"></div>
+                            <div class="item item-large pesent-width">
+                                <h3>стильная</h3>
+                                <img src="img/form3.png" alt="">
+                                <div class="play">
+                                    <i class="fa fa-play fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="item item-large pesent-width">
+                                <h3>роковая</h3>
+                                <img src="img/form2.png" alt="">
+                                <div class="play">
+                                    <i class="fa fa-play fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="item item-large pesent-width">
+                                <h3>Деловая</h3>
+                                <img src="img/form1.png" alt="">
+                                <div class="play">
+                                    <i class="fa fa-play fa-2x"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -111,48 +131,20 @@
             </div>
             <div class="container-flex container-small">
                 <div class="item-wrapper wrapper-large wrap">
-                    <div class="item">
-                        <img src="img/syoss.png" alt="" class="fight-flag">
-                        <img src="img/300.png" alt="">
-                        <div class="play">
-                            <i class="fa fa-play fa-2x"></i>
+                    @foreach($photo as $item)
+                        <div class="item">
+                            <div class="play">
+                                <i class="fa fa-play fa-2x popupShow" onclick="popup('{{ $item->photo->link }}', {{ $item->photo->like_count_count }})"></i>
+                            </div>
+                            <img src="{{ route('resize', ['link' => $item->photo->link, 'x' => 225, 'y' => 225]) }}">
+                            <div class="social">
+                                <i class="fa fa-vk fw"></i>
+                                <i class="fa fa-odnoklassniki fw"></i>
+                                <i class="fa fa-facebook fw"></i>
+                                @include('website.common.likesBlock')
+                            </div>
                         </div>
-                        <div class="social social-small">
-                            <i class="fa fa-search fw"></i>
-                            <span>
-                                <i class="fa fa-heart fw"></i> лайк 24
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="img/300.png" alt="">
-                        <img src="img/syoss.png" alt="" class="fight-flag">
-                    </div>
-
-                    <div class="item">
-                        <img src="img/300.png" alt="">
-                    </div>
-
-                    <div class="item">
-                        <img src="img/300.png" alt="">
-                    </div>
-
-                    <div class="item">
-                        <img src="img/300.png" alt="">
-                    </div>
-
-                    <div class="item">
-                        <img src="img/300.png" alt="">
-                    </div>
-
-                    <div class="item">
-                        <img src="img/300.png" alt="">
-                    </div>
-
-                    <div class="item">
-                        <img src="img/300.png" alt="">
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="container-flex container-small flex-center">
@@ -217,4 +209,5 @@
         </section>
     </div>
 </div>
+@include('website.common.popup')
 @endsection

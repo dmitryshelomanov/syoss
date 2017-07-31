@@ -58,5 +58,10 @@ return [
         'Заявка рассматривается',
         'Заявка отклонена',
         'принимает участие в битве'
+    ],
+
+    "link" => [
+        'vkontakte' => 'https://vk.com/id',
+        'facebook' => 'https://www.facebook.com/profile.php?id='
     ]
 ];

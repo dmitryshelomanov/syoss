@@ -1,4 +1,4 @@
-<header class="{{ URL::current() ===  env('APP_URL') ? 'fixed' : '' }}">
+<header class="{{ URL::current().'/' ===  env('APP_URL') ? 'fixed' : '' }}">
 
     @include('website.common.topMenu')
 
