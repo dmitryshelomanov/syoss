@@ -62,6 +62,7 @@ return [
 
     "link" => [
         'vkontakte' => 'https://vk.com/id',
-        'facebook' => 'https://www.facebook.com/profile.php?id='
+        'facebook' => 'https://www.facebook.com/',
+        'odnoklassniki' => 'https://www.facebook.com/'
     ]
 ];

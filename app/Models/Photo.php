@@ -19,15 +19,6 @@ class Photo extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * количество лайков
-     */
-    public function likeCount()
-    {
-        return $this->hasMany('App\Models\Likes');
-    }
-
-    /**
      * @param $value
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      * получить последние фото
@@ -66,18 +57,52 @@ class Photo extends Model
         ])->count();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function battle()
     {
         return $this->hasOne('App\Models\Battle');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function check()
     {
         return $this->hasOne('App\Models\Check');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\Models\Users\User');
+    }
+
+    /**
+     * @param $q
+     * @return mixed
+     * скоуп. Получить с инфой о батле
+     */
+    public function scopeWithBattle($q)
+    {
+        return $q->with(['battle' => function($q) {
+            $q->select('id', 'photo_id', 'publish');
+        }]);
+    }
+
+    /**
+     * @param $q
+     * @return mixed
+     * получить для юзера
+     */
+    public function scopeWhereUser($q, $request)
+    {
+        return $q->where([
+            ['user_id', $request->user()->id],
+            ['week', DateHelper::currentStep()]
+        ]);
     }
 }

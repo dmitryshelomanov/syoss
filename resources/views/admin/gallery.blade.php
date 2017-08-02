@@ -7,7 +7,7 @@
         <div class="photo-items">
             @foreach($photo as $item)
                 <div class="item item-gallery">
-                    <div class="like">{{ $item->photo->like_count_count }} лайко(ов,а)</div>
+                    <div class="like">{{ $item->likes_count }} лайко(ов,а)</div>
                     <div class="user-info">
                         <a href="{{ config('services')['link'][$item->photo->user->provider].$item->photo->user->uid }}" target="_blank">Ссылка на пользователя</a>
                     </div>

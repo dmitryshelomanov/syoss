@@ -20,7 +20,7 @@ function setLike(url, photo_id, cb) {
             cb();
         },
         error: function() {
-            console.log('error')
+            $('.preloader').hide();
         }
     });
 
@@ -33,23 +33,6 @@ function popup(photo, like) {
     $('#vk').attr('href', 'https://vk.com/share.php?url=http://syossdev.soc-app.ru/gallery&title=Заголовок&image=http://syossdev.soc-app.ru/'+ photo);
     $('#fb').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=http://syossdev.soc-app.ru/gallery&title=Заголовок&src=http://syossdev.soc-app.ru/'+ photo);
 };
-
-// function addLike() {
-//
-//     $('.preloader').show();
-//     var self = $(this);
-//     var unSet = $('#unSetLike');
-//     var text = self.children('like').text();
-//     setLike($(this).data().url, $(this).data().photo_id, function() {
-//         console.log('set like');
-//         self.css({'display': 'none'});
-//         unSet.css({'display': 'block'});
-//         self.children('like').html(parseInt(text) + 1);
-//         unSet.children('like').html(parseInt(text) + 1);
-//         $('.preloader').hide();
-//     });
-//
-// };
 
 function addLike(photo_id, self) {
 
@@ -101,7 +84,21 @@ function removeLike(photo_id) {
 
 };
 
+function urlParse() {
+
+    var object = {};
+    if (window.location.href.split('?').length > 1) {
+        window.location.href.split('?')[1].split('&').forEach(function(item) {
+            object[item.split('=')[0]] = item.split('=')[1];
+        });
+    }
+    return object;
+
+}
+
 $(document).ready(function () {
+
+    var parseURI = urlParse();
 
     var csrftoken = $('meta[name="srf-token"]').attr('content');
     $.ajaxSetup({
@@ -141,6 +138,32 @@ $(document).ready(function () {
     $('#capture').on('click', function(e){
         e.preventDefault();
         $('#files')[0].click();
+    });
+
+    var skip = 1;
+    var take = 1;
+    $('#more').click(function() {
+
+        $('.preloader').show();
+        $.ajax({
+            url: '/more',
+            type: 'get',
+            data: {
+                skip: skip,
+                take: take,
+                layout: 'itemPhoto',
+                order: parseURI.order
+            },
+            success: function(data) {
+                skip++;
+                $('#wrap').append(data);
+                $('.preloader').hide();
+            },
+            error: function() {
+                console.log('error');
+            }
+        });
+
     });
 
 });

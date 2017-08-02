@@ -27,13 +27,9 @@ class CompetitionController extends Controller
 
     public function getPhotoForCompetition()
     {
-        return $this->photo->where([
-            ['user_id', $this->request->user()->id],
-            ['week', DateHelper::currentStep()]
-        ])
-        ->with(['battle' => function($q) {
-            $q->select('id', 'photo_id', 'publish');
-        }])
-        ->get(['id', 'link']);
+        return $this->photo
+            ->whereUser($this->request)
+            ->withBattle()
+            ->get(['id', 'link']);
     }
 }

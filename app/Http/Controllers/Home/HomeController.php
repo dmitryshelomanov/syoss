@@ -19,17 +19,9 @@ class HomeController extends Controller
     public function getLastPhoto($count)
     {
         return $this->battle
-            ->with(['photo' => function($q) {
-                $q->with(['likes' => function($q) {
-                    $q->select('id', 'photo_id', 'user_id')
-                        ->where('user_id', Auth::user() ? Auth::user()->id : 0);
-                }])
-                ->withCount('likeCount');
-            }])
-            ->where([
-                ['week', DateHelper::currentStep()],
-                ['publish', 2]
-            ])
+            ->photoInfo()
+            ->withCount('likes')
+            ->published()
             ->limit($count)
             ->get();
     }

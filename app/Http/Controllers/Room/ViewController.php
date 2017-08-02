@@ -26,15 +26,11 @@ class ViewController extends Controller
         ]);
     }
 
-    public function getPhotoForWeek($week)
+    public function getPhotoForWeek()
     {
-        return $this->photo->where([
-            ['user_id', $this->request->user()->id],
-            ['week', $week]
-        ])
-        ->with(['battle' => function($q) {
-            $q->select('id', 'photo_id');
-        }])
-        ->get(['id', 'link']);
+        return $this->photo
+            ->whereUser($this->request)
+            ->withBattle()
+            ->get(['id', 'link']);
     }
 }

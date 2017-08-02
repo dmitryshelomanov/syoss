@@ -43,7 +43,7 @@ Route::middleware('guest')->group(function() {
         return view('admin.login');
     });
 });
-
-Route::get('share', function() {
-    return view('website.shared');
-});
+// поделиться
+Route::get('share', 'ShareController@share');
+// посмотреть еще
+Route::get('/more', 'Gallery\GalleryController@allPhoto')->name('more');

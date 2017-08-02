@@ -20,6 +20,14 @@ class Battle extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * кол-во лайков
+     */
+    public function likes()
+    {
+        return $this->hasOne('App\Models\Likes', 'photo_id', 'photo_id');
+    }
+    /**
      * @return mixed
      * проверка учавствует ли юзер уже или нет
      */
@@ -42,6 +50,37 @@ class Battle extends Model
             'user_id' => Auth::user()->id,
             'photo_id' => $photo_id,
             'week' => DateHelper::currentStep()
+        ]);
+    }
+
+    /**
+     * @param $q
+     * @return mixed
+     * скоуп. Получаем инфу о фото
+     */
+    public function scopePhotoInfo($q)
+    {
+        return $q->with(['photo' => function($q) {
+                    $q->with(['likes' => function($q) {
+                        $q->select('id', 'photo_id', 'user_id')
+                            ->where('user_id', Auth::user() ? Auth::user()->id : 0);
+                    }])
+                    ->with(['user' => function($q) {
+                        $q->select('id', 'uid', 'provider');
+                    }]);
+                }]);
+    }
+
+    /**
+     * @param $q
+     * @return mixed
+     * скоуп. Получаем опубликованные фотки
+     */
+    public function scopePublished($q)
+    {
+        return $q->where([
+            ['week', DateHelper::currentStep()],
+            ['publish', 2]
         ]);
     }
 }

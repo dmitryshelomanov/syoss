@@ -85,7 +85,10 @@ class CheckUploadController extends Controller
      */
     public function move()
     {
-        $this->policy();
+        $policy = $this->policy();
+        if (count($policy) > 0) {
+            return redirect()->back()->with('message', 'Вы не выбрали изображение');
+        }
         $this->checkType();
         $move = $this->uploadService->save('check');
         if ($move) {
@@ -114,7 +117,7 @@ class CheckUploadController extends Controller
     {
         $add = $this->battle->addToBattle($this->request->checked);
         if ($add) {
-            return redirect()->back();
+            return redirect("/room/view?week=" . DateHelper::currentStep());
         }
         return abort(500);
     }

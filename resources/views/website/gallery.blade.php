@@ -16,34 +16,38 @@
         <div class="filter">
             <h1 class="bottom-line text-center">Фильтр</h1>
             <ul>
-                <li class="active">
-                    <div>по количеству лайков</div>
+                <li @if(request()->order === 'likes') class="active" @endif>
+                    <a href="?order=likes">
+                        <div>по количеству лайков</div>
+                    </a>
                 </li>
-                <li>
-                    <span>по дате загрузки</span>
+                <li @if(request()->order === 'created' || !request()->order) class="active" @endif>
+                    <a href="?order=created">
+                        <span>по дате загрузки</span>
+                    </a>
                 </li>
             </ul>
         </div>
-        <div class="item-wrapper wrap">
+        <div class="item-wrapper wrap" id="wrap">
             @foreach($photo as $item)
                 <div class="item">
                     <div class="play">
-                        <i class="fa fa-play fa-2x popupShow" onclick="popup('{{ $item->photo->link }}', {{ $item->photo->like_count_count }})"></i>
+                        <i class="fa fa-play fa-2x popupShow" onclick="popup('{{ $item->photo->link }}', {{ $item->likes_count }})"></i>
                     </div>
                     <img src="{{ route('resize', ['link' => $item->photo->link, 'x' => 225, 'y' => 225]) }}">
                     <div class="social">
-                        <a href="https://vk.com/share.php?url={{env('APP_URL')}}gallery&title=Заголовок&image={{ env('APP_URL').$item->photo->link }}" target="_blank">
-                            <i class="fa fa-vk fw"></i>
-                        </a>
-                        <i class="fa fa-odnoklassniki fw"></i>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{env('APP_URL')}}gallery&title=Заголовок&src={{ env('APP_URL').$item->photo->link }}" target="_blank">
-                            <i class="fa fa-facebook fw"></i>
-                        </a>
+                        @include('website.common.link')
                         @include('website.common.likesBlock')
                     </div>
                 </div>
             @endforeach
         </div>
+    </div>
+
+    <div class="container-flex flex-center">
+        <button class="standart" id="more">
+            <span>показать еще</span>
+        </button>
     </div>
 
     @include('website.common.popup')

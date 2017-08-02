@@ -7,17 +7,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use DateHelper;
+use App\Helpers\AjaxRender;
 
 class GalleryController extends Controller
 {
-    private
-        $battle,
-        $request;
+    private $battle;
+    private $request;
+    private $ajaxRender;
 
-    public function __construct(Battle $battle, Request $request)
+    public function __construct(Battle $battle, Request $request, AjaxRender $ajaxRender)
     {
         $this->battle = $battle;
         $this->request = $request;
+        $this->ajaxRender = $ajaxRender;
     }
 
     /**
@@ -26,22 +28,21 @@ class GalleryController extends Controller
      */
     public function allPhoto()
     {
-        return $this->battle
-            ->with(['photo' => function($q) {
-                $q->with(['likes' => function($q) {
-                    $q->select('id', 'photo_id', 'user_id')
-                      ->where('user_id', Auth::user() ? Auth::user()->id : 0);
-                }])
-                ->with(['user' => function($q) {
-                    $q->select('id', 'uid', 'provider');
-                }])
-                ->withCount('likeCount');
-            }])
-            ->where([
-                ['week', DateHelper::currentStep()],
-                ['publish', 2]
-            ])
+        $data = $this->battle
+            ->photoInfo()
+            ->withCount('likes')
+            ->orderBy($this->request->order === 'likes' ? 'likes_count' : 'id', 'desc')
+            ->published()
+            ->skip($this->request->skip ? $this->request->skip : 0)
+            ->take($this->request->take ? $this->request->take : 1)
             ->get();
+
+        if ($this->request->ajax()) {
+            return response()->json(
+                $this->ajaxRender->render($data, $this->request->layout)
+            );
+        }
+        return $data;
     }
 
     /**
