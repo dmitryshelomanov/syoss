@@ -8,7 +8,7 @@
         </form>
         <a href="{{ route('room') }}">личный кабинет</a>
         @if(\Auth::user()->role === 1)
-            <a href="{{ route('adminView') }}">адимнка</a>
+            <a href="{{ route('adminView') }}">админка</a>
         @endif()
     </ul>
 </div>

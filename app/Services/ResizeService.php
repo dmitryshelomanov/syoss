@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Intervention\Image\ImageManager as Image;
 use Storage;
+
 class ResizeService
 {
     private $intervention;

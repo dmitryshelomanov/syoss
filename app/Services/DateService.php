@@ -10,12 +10,43 @@ namespace App\Services;
 
 class DateService
 {
-    public
-        $long,
-        $step,
-        $now,
-        $reckoning,
-        $start;
+    /**
+     * Длительность приложения
+     * @var mixed
+     */
+    private $long;
+    /**
+     * Кол-во шагов
+     * @var mixed
+     */
+    private $step;
+    /**
+     * Текущий шаг
+     * @var int
+     */
+    private $now;
+    /**
+     * Тип по умолчанию
+     * @var mixed
+     */
+    private $reckoning;
+    /**
+     * Дата старта
+     * @var mixed
+     */
+    public $start;
+    /**
+     * Массив измерения времени
+     * @var array
+     */
+    private $dateCalculate = [
+        "second" => 1,
+        "minute" => 60,
+        "hour" => 3600,
+        "day" => 86400,
+        "week" => 604800,
+        "month" => 2419200
+    ];
 
     public function __construct()
     {
@@ -47,7 +78,6 @@ class DateService
     public function currentStep($param = null)
     {
         $param = $this->integrationReckoning($param);
-
         return intval(
             ceil($this->timeDifference($param) / $this->getStep())
         );
@@ -62,34 +92,9 @@ class DateService
     public function getStep($type = null)
     {
         $type = $this->integrationReckoning($type);
-
-        $number = null;
-
-        switch ($type) {
-            case 'second':
-                $number = $this->step;
-                break;
-            case 'minute':
-                $number = ceil(
-                    $this->step / 60
-                );
-                break;
-            case 'hour':
-                $number = ceil(
-                    $this->step / 3600
-                );
-                break;
-            case 'day':
-                $number = ceil(
-                    $this->step / 86400
-                );
-                break;
-            case 'week':
-                $number = ceil(
-                    $this->step / 604800
-                );
-        }
-        return intval($number);
+        return intval(
+            ceil($this->step / $this->dateCalculate[$type])
+        );
     }
 
     /**
@@ -110,34 +115,8 @@ class DateService
     public function timeDifference($type = null)
     {
         $type = $this->integrationReckoning($type);
-
-        $number = null;
-
-        switch ($type) {
-            case 'second':
-                $number = $this->now - $this->start;
-                break;
-            case 'minute':
-                $number = ceil(
-                    ($this->now - $this->start) / 60
-                );
-                break;
-            case 'hour':
-                $number = ceil(
-                    ($this->now - $this->start) / 3600
-                );
-                break;
-            case 'day':
-                $number = ceil(
-                    ($this->now - $this->start) / 86400
-                );
-                break;
-            case 'week':
-                $number = ceil(
-                    ($this->now - $this->start) / 604800
-                );
-                break;
-        }
-        return intval($number);
+        return intval(
+            ceil(($this->now - $this->start) / $this->dateCalculate[$type])
+        );
     }
 }

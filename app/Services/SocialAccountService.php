@@ -18,7 +18,7 @@ class SocialAccountService
         $account = User::whereSocialProvider($providerUser, $providerName);
 
         if ($account) {
-            return $this->mergeAccount($account, $providerUser, $providerName);
+            return $this->mergeAccount($account, $providerUser);
         } else {
             $user = User::createBySocialProvider($providerUser, $providerName);
             if ($user) {
@@ -33,10 +33,9 @@ class SocialAccountService
      * Мерж аков при входе
      * @param $user
      * @param $providerUser
-     * @param $providerName
      * @return bool
      */
-    public function mergeAccount($user, $providerUser, $providerName) {
+    public function mergeAccount($user, $providerUser) {
         $providerUser = [
             'email' => $providerUser->getEmail(),
             'name' => $providerUser->getName(),
