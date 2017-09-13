@@ -7,5 +7,8 @@
             <button>выход</button>
         </form>
         <a href="{{ route('room') }}">личный кабинет</a>
+        @if(\Auth::user()->role === 1)
+            <a href="{{ route('adminView') }}">адимнка</a>
+        @endif()
     </ul>
 </div>

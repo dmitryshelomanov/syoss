@@ -23,3 +23,6 @@
 @yield('content')
 
 @include('website.common.footer')
+
+<div class="alert-success"></div>
+<div class="alert-error"></div>

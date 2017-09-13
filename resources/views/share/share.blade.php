@@ -9,6 +9,8 @@
     <meta property="og:title" content="When Great Minds Don’t Think Alike" />
     <meta property="og:description" content="How much does culture influence creative thinking?" />
     <meta property="og:image"  content="{{ $request->img }}" />
+    <meta property="og:image:width"  content="600" />
+    <meta property="og:image:height"  content="600" />
 </head>
 <body>
 

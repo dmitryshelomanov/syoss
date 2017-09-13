@@ -39,18 +39,13 @@
                         <input type="text" id="name">
                     </div>
                     <div class="group">
-                        <button class="standart">
-                            <span>предпросмотр</span>
-                        </button>
-                    </div>
-                    <div class="group">
                         <button class="standart" id="upload">
                             <span>готово</span>
                         </button>
                     </div>
                     <div class="group">
                         <button class="standart" id="capture-edit">
-                            <span>загрузить фото</span>
+                            <span>выбрать фото</span>
                         </button>
                     </div>
                 </div>

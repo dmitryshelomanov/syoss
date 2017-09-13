@@ -15,7 +15,6 @@ class ResizeService
 
     public function resize($request)
     {
-//        dd(Storage::exists(asset($request->link)));
         if (file_exists($request->link)) {
             return $this->intervention
                 ->make(asset($request->link))

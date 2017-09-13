@@ -21,6 +21,9 @@
                                 не принимать
                             </button>
                         </form>
+                        <button class="look" id="look" data-check-href="{{ asset($item->photo->check->link) }}" data-image-href="{{ asset($item->photo->link) }}">
+                            посмотреть
+                        </button>
                     </div>
                 </div>
             @endforeach

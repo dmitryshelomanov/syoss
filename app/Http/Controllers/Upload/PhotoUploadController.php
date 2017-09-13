@@ -32,10 +32,11 @@ class PhotoUploadController extends Controller
      */
     private function policy()
     {
-        if (!policy($this->request->user())->check($this->request->user())) {
-            return response()->json('does not upload photo', 500);
+        if (policy($this->request->user())->check($this->request->user()) &&
+            policy('App\Models\Battle')->check()) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -44,12 +45,14 @@ class PhotoUploadController extends Controller
      */
     public function upload()
     {
-        $this->policy();
-        $this->checkType();
-        $this->filter();
-        return response()->json(
-            $this->save()
-        );
+        if ($this->policy()) {
+            $this->checkType();
+            $this->filter();
+            return response()->json(
+                $this->save()
+            );
+        }
+        return response()->json('does not upload photo', 500);
     }
 
     /**

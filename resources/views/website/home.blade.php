@@ -170,26 +170,20 @@
                 <div class="promo">
                     <h1>победительницы</h1>
                     <span>
-                            Поздравляем победительниц Битвы Красоты Syoss! <br>
-                            Всем девушкам, кто принял участие в конкурсе спасибо, будем рады увидеть вас снова!
-                        </span>
+                        Поздравляем победительниц Битвы Красоты Syoss! <br>
+                        Всем девушкам, кто принял участие в конкурсе спасибо, будем рады увидеть вас снова!
+                    </span>
                 </div>
                 @include('website.common.week')
             </div>
             <div class="container-flex container-small">
                 <div class="item-wrapper three-item">
-                    <div class="item">
-                        <img src="img/300.png">
-                        <img src="img/syoss.png" class="fight-flag">
-                    </div>
-                    <div class="item">
-                        <img src="img/300.png">
-                        <img src="img/syoss.png" class="fight-flag">
-                    </div>
-                    <div class="item">
-                        <img src="img/300.png">
-                        <img src="img/syoss.png" class="fight-flag">
-                    </div>
+                    @foreach($winners as $item)
+                        <div class="item">
+                            <img src="{{ route('resize', ['link' => $item->photo->link, 'x' => 225, 'y' => 225]) }}">
+                            <img src="img/winner.png" class="fight-flag">
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <footer class="bottom">

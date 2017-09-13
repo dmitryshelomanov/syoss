@@ -25,3 +25,6 @@ Route::post('/photo/upload', 'Upload\PhotoUploadController@upload');
 
 // загрузить чек
 Route::post('/check/upload', 'Upload\CheckUploadController@upload');
+
+// если не чек не прошел модерацию, то дать возможность перевыбрать фото
+Route::post('/reCompetition', 'Room\CompetitionController@reCompetition')->name('reCompetition');

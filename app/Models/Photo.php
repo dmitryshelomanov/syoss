@@ -98,11 +98,11 @@ class Photo extends Model
      * @return mixed
      * получить для юзера
      */
-    public function scopeWhereUser($q, $request)
+    public function scopeWhereUser($q, $request, $week = null)
     {
         return $q->where([
             ['user_id', $request->user()->id],
-            ['week', DateHelper::currentStep()]
+            ['week', $week ? $week : DateHelper::currentStep()]
         ]);
     }
 }

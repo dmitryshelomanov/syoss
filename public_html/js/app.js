@@ -140,8 +140,8 @@ $(document).ready(function () {
         $('#files')[0].click();
     });
 
-    var skip = 1;
-    var take = 1;
+    var skip = 10;
+    var take = 10;
     $('#more').click(function() {
 
         $('.preloader').show();
@@ -155,15 +155,29 @@ $(document).ready(function () {
                 order: parseURI.order
             },
             success: function(data) {
-                skip++;
+                skip += take;
                 $('#wrap').append(data);
                 $('.preloader').hide();
-            },
-            error: function() {
-                console.log('error');
             }
         });
 
     });
+
+       $('.alert-success, .alert-error').click(function () {
+           $(this).hide();
+       });
+
+       $('#reCompetitionSub').on('click', function() {
+
+           $('.preloader').show();
+           $.ajax({
+               url: '/room/reCompetition',
+               type: 'post',
+               success: function(data) {
+                    window.location.reload()
+               }
+           });
+
+       })
 
 });

@@ -66,10 +66,13 @@ $(document).ready(function() {
                         processData: false,
                         contentType: false,
                         success: function (data) {
-                            window.location.href = '/room/view';
+                            $('.preloader').hide();
+                            window.location.href = '/room/view?week=4';
                         },
                         error: function () {
-                            console.log('Upload error');
+                            $('.preloader').hide();
+                            $('.alert-error').text('Ошибка загрузки изображения');
+                            $('.alert-error').show(500);
                         }
                     });
                 });

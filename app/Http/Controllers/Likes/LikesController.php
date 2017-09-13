@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Likes;
 
-use App\Models\Photo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Likes;
@@ -11,6 +10,7 @@ class LikesController extends Controller
 {
     private $request;
     private $likes;
+    private $policyServices;
 
     public function __construct(Request $request, Likes $likes)
     {

@@ -21,9 +21,18 @@
                         <img src="{{ asset('img/syoss.png') }}" class="fight-flag">
                         <div class="message-moderate">
                             {{ config('services')['moderate'][$item->battle->publish] }}
-                            <button class="standart flex-center" type="button">
-                                <span>скачать чек</span>
-                            </button>
+                            @if ($item->battle->publish === 2)
+                                <button class="standart flex-center" type="button">
+                                    <span>скачать чек</span>
+                                </button>
+                            @elseif ($item->battle->publish === 1)
+                                <form action="{{ route('reCompetition') }}" method="post" id="reCompetition">
+                                    {{ csrf_field() }}
+                                    <button class="standart flex-center" type="button" id="reCompetitionSub">
+                                        <span>загрузить новое</span>
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     @endif
                     @can('check', 'App\Models\Battle')

@@ -11,8 +11,8 @@ use App\Helpers\AjaxRender;
 
 class GalleryController extends Controller
 {
-    private $battle;
-    private $request;
+    public $battle;
+    public $request;
     private $ajaxRender;
 
     public function __construct(Battle $battle, Request $request, AjaxRender $ajaxRender)
@@ -26,15 +26,16 @@ class GalleryController extends Controller
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      * Получить все фотки + лайки от юзера авторизированного
      */
-    public function allPhoto()
+    public function allPhoto($skip = 0, $take = 10, $current = true, $week = 1)
     {
         $data = $this->battle
             ->photoInfo()
             ->withCount('likes')
+            ->withCount('winners')
             ->orderBy($this->request->order === 'likes' ? 'likes_count' : 'id', 'desc')
-            ->published()
-            ->skip($this->request->skip ? $this->request->skip : 0)
-            ->take($this->request->take ? $this->request->take : 1)
+            ->published($current, $week)
+            ->skip($this->request->skip ? $this->request->skip : $skip)
+            ->take($this->request->take ? $this->request->take : $take)
             ->get();
 
         if ($this->request->ajax()) {

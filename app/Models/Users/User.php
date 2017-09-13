@@ -49,4 +49,20 @@ class User extends Authenticatable
             ['provider', $providerName]
         ])->first();
     }
+
+    public static function updateUser($user) {
+        $update = self::where([
+            ['uid' , $user['uid']],
+            ['email', $user['email']],
+            ['provider', $user['provider']]
+        ])->update($user);
+        if ($update) {
+            return self::where([
+                ['uid' , $user['uid']],
+                ['email', $user['email']],
+                ['provider', $user['provider']]
+            ])->first();
+        }
+        return abort(500);
+    }
 }

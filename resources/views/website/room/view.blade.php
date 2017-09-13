@@ -29,7 +29,11 @@
                 @endphp
             @endforeach
             @for($i = count($photo); $i < 4; $i++)
-                @if($param === 0)
+                @if($param === 0 && request()->week != DateHelper::currentStep())
+                    <div class="item upload-more">
+                        на данно неделе уже нельзя загрузить фото
+                    </div>
+                @elseif ($param === 0)
                     <div class="item upload-more">
                         <a href="{{ route('edit') }}">
                             <img src="{{ asset('img/upload.png') }}">
