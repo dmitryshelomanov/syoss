@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use App\Services\DateService;
+use App\Helpers\QueryGenerate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
     }
 
     /**
@@ -27,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('dateservice', function($app) {
             return new DateService;
+        });
+        $this->app->singleton('querygenerate', function($app) {
+            return new QueryGenerate;
         });
     }
 }

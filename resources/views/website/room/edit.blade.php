@@ -9,7 +9,7 @@
                 Выберите образ, который подходит именно Вам!
             </span>
         </div>
-        @include('website.common.week')
+        @include('website.common.week', ["type" => "room"])
     </div>
     @cannot('check', Auth::user())
         <div class="container-flex">
@@ -29,10 +29,9 @@
                 </div>
                 <div class="control">
                     <select id="animation">
-                        <option value="/img/animation/preview.png">анимация 1</option>
-                        <option value="/img/animation/preview1.png">анимация 2</option>
-                        <option value="/img/animation/preview2.png">анимация 3</option>
-                        <option value="/img/animation/preview4.png">анимация 4</option>
+                        @foreach(config("services")["animation"] as $key => $value)
+                            <option value="/img/animation/{{ $value }}">{{ $key }}</option>
+                        @endforeach
                     </select>
                     <div class="group">
                         <label for="name">ваше имя</label>

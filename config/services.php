@@ -65,5 +65,12 @@ return [
         'facebook' => 'https://www.facebook.com/',
         'odnoklassniki' => 'https://www.facebook.com/',
         'null' => ''
+    ],
+
+    "animation" => [
+        "анимация 1" => "preview.png",
+        "анимация 2" => "preview1.png",
+        "анимация 3" => "preview2.png",
+        "анимация 4" => "preview4.png"
     ]
 ];

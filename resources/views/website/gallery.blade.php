@@ -9,26 +9,17 @@
                 Получите ГИФКУ и примите участие в конкурсе, чтобы выиграть Имидж-book и шоппинг!*
             </span>
         </div>
-        @include('website.common.week')
+        @include('website.common.week', ["type" => "week"])
     </div>
 
     <div class="container-flex column">
-        <div class="filter">
-            <h1 class="bottom-line text-center">Фильтр</h1>
-            <ul>
-                <li @if(request()->order === 'likes') class="active" @endif>
-                    <a href="?order=likes">
-                        <div>по количеству лайков</div>
-                    </a>
-                </li>
-                <li @if(request()->order === 'created' || !request()->order) class="active" @endif>
-                    <a href="?order=created">
-                        <span>по дате загрузки</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        @include("website.common.filter")
         <div class="item-wrapper wrap" id="wrap">
+            @if(count($photo) === 0)
+                <div style="width: 100%; text-align: center;">
+                    фотографий еще нету
+                </div>
+            @endif
             @foreach($photo as $item)
                 <div class="item">
                     <div class="play">

@@ -30,6 +30,6 @@ class Check extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists("check");
     }
 }

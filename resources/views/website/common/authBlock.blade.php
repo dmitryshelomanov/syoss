@@ -6,7 +6,9 @@
             {{ csrf_field() }}
             <button>выход</button>
         </form>
-        <a href="{{ route('room') }}">личный кабинет</a>
+        @if(\Auth::user()->role === 0)
+            <a href="{{ route('room') }}">личный кабинет</a>
+        @endif()
         @if(\Auth::user()->role === 1)
             <a href="{{ route('adminView') }}">админка</a>
         @endif()

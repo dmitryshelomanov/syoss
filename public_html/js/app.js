@@ -1,13 +1,3 @@
-// start full page plugin
-
-
-
-var checksize = function () {
-    // if ($(window).width() < 1025 && $.fn.fullpage) {
-    //     $.fn.fullpage.destroy();
-    // }
-};
-
 function setLike(url, photo_id, cb) {
 
     $.ajax({
@@ -113,12 +103,6 @@ $(document).ready(function () {
         scrollingSpeed: 1000
     });
 
-    checksize();
-
-    $(window).resize(function () {
-        checksize();
-    });
-
     $('.open-menu').click(function(e) {
         var i1 = $('.open-menu i:first-child');
         var i2 = $('.open-menu i:last-child');
@@ -140,10 +124,9 @@ $(document).ready(function () {
         $('#files')[0].click();
     });
 
-    var skip = 10;
-    var take = 10;
+    var skip = 50;
+    var take = 50;
     $('#more').click(function() {
-
         $('.preloader').show();
         $.ajax({
             url: '/more',
@@ -160,7 +143,24 @@ $(document).ready(function () {
                 $('.preloader').hide();
             }
         });
+    });
 
+    $(".getWinners").click(function(e) {
+        $('.preloader').show();
+        $(".getWinners").removeClass("active-week");
+        $.ajax({
+            url: '/getWinners',
+            type: 'get',
+            data: {
+                week: $(this).data("week"),
+                layout: 'winners'
+            },
+            success: function(data) {
+                $('#winnersWrap').html(data);
+                $('.preloader').hide();
+                e.target.classList.add("active-week");
+            }
+        });
     });
 
        $('.alert-success, .alert-error').click(function () {

@@ -42,3 +42,7 @@ Route::get('share', 'ShareController@share');
 
 // посмотреть еще
 Route::get('/more', 'Gallery\GalleryController@allPhoto')->name('more');
+
+// посмотреть победителей
+
+Route::get('/getWinners', 'Gallery\GalleryController@getWinners');

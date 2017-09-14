@@ -82,26 +82,10 @@ class Battle extends Model
      * @return mixed
      * скоуп. Получаем опубликованные фотки
      */
-    public function scopePublished($q, $current = true, $week = 0)
-    {
-        if ($current) {
-            return $q->where([
-                ['week', DateHelper::currentStep()],
-                ['publish', 2]
-            ]);
-        }
-        return $this->scopeAll($q, $week);
-    }
-
-    /**
-     * @param $q
-     * @return mixed
-     * получить все фотки по определенно неделе
-     */
-    public function scopeAll($q, $week)
+    public function scopePublished($q, $week = null)
     {
         return $q->where([
-            ['week', $week],
+            ['week', $week ? $week : DateHelper::currentStep()],
             ['publish', 2]
         ]);
     }

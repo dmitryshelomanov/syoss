@@ -9,7 +9,7 @@
                 Загрузите чек, опубликуйте свое фото и получите стильный приз!
             </span>
         </div>
-        @include('website.common.week')
+        @include('website.common.week', ["type" => "room"])
     </div>
     <form action="/room/check/upload" method="post" style="width: 100%" enctype="multipart/form-data">
     <div class="container-flex flex-center">

@@ -28,6 +28,6 @@ class Battle extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists("battle");
     }
 }

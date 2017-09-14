@@ -1051,3 +1051,9 @@ a {
     font-size: 26px;
     margin: 300px 0;
 }
+.active-week {
+    color: #d863cd !important;
+}
+.no-winners {
+    padding: 50px 25px;
+}

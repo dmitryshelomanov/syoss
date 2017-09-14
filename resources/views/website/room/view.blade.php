@@ -9,7 +9,7 @@
                 Выберите образ, который подходит именно Вам!
             </span>
         </div>
-        @include('website.common.week')
+        @include('website.common.week', ["type" => "week"])
     </div>
 
     <div class="container-flex flex-center">
@@ -31,7 +31,7 @@
             @for($i = count($photo); $i < 4; $i++)
                 @if($param === 0 && request()->week != DateHelper::currentStep())
                     <div class="item upload-more">
-                        на данно неделе уже нельзя загрузить фото
+                        <img src="{{ asset('img/emptyupload.jpg') }}">
                     </div>
                 @elseif ($param === 0)
                     <div class="item upload-more">
@@ -47,12 +47,13 @@
             @endfor
         </div>
     </div>
-
-    <div class="container-flex flex-center">
-        <button class="standart margin-bottom">
+    @if(request()->week == DateHelper::currentStep())
+        <div class="container-flex flex-center">
+            <button class="standart margin-bottom">
             <span>
                 <a href="{{ route('competition') }}">принять участие в конкурсе</a>
             </span>
-        </button>
-    </div>
+            </button>
+        </div>
+    @endif()
 @endsection

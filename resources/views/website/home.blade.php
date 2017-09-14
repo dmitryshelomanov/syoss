@@ -174,10 +174,15 @@
                         Всем девушкам, кто принял участие в конкурсе спасибо, будем рады увидеть вас снова!
                     </span>
                 </div>
-                @include('website.common.week')
+                @include('website.common.week', ["type" => "winners"])
             </div>
             <div class="container-flex container-small">
-                <div class="item-wrapper three-item">
+                <div class="item-wrapper three-item" id="winnersWrap">
+                    @if(count($photo) === 0)
+                        <div class="no-winners">
+                            На этой неделе еще не назначили победителей
+                        </div>
+                    @endif()
                     @foreach($winners as $item)
                         <div class="item">
                             <img src="{{ route('resize', ['link' => $item->photo->link, 'x' => 225, 'y' => 225]) }}">

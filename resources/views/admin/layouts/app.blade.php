@@ -16,10 +16,9 @@
                 );
             });
 
-            var skip = 1;
-            var take = 1;
+            var skip = 50;
+            var take = 50;
             $('#more').click(function() {
-
                 $.ajax({
                     url: '/more',
                     type: 'get',
@@ -27,11 +26,11 @@
                         skip: skip,
                         take: take,
                         layout: 'adminPhoto',
+                        week: $(this).data("week") ? $(this).data("week") : null
                     },
                     success: function (data) {
                         skip++;
                         $('.photo-items').append(data);
-                        console.log('success');
                     }
                 });
 

@@ -5,7 +5,7 @@ use App\Helpers\AjaxRender;
 use App\Http\Controllers\Gallery\GalleryController;
 use App\Models\Battle;
 use Illuminate\Http\Request;
-
+use DateHelper;
 class PhotoController extends GalleryController
 {
     public function __construct(Battle $battle, Request $request, AjaxRender $ajaxRender)
@@ -17,7 +17,7 @@ class PhotoController extends GalleryController
     {
         return view('admin.gallery', [
             'photo' => $this->allPhoto(
-                0, 1, false, $this->request->week ? $this->request->week : 1
+                0, 10, $this->request->week ? $this->request->week : null
             )
         ]);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Room;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Photo;
+use DateHelper;
 
 class ViewController extends Controller
 {
@@ -21,7 +22,7 @@ class ViewController extends Controller
     {
         return view('website.room.view', [
             'photo' => $this->getPhotoForWeek(
-                $this->request->week  ? $this->request->week  : 1
+                $this->request->week ? $this->request->week : \DateHelper::currentStep()
             )
         ]);
     }

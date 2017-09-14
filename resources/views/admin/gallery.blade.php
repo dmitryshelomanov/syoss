@@ -3,7 +3,7 @@
 @section('content')
     @include('admin.common.header')
     <h1>Фото учавствующие в битве на этой неделе</h1>
-    <a href="#" id="more">Показать еще</a>
+    <a href="#" id="more" data-week="{{ request()->week }}">Показать еще</a>
     <div class="week">
         <div>Неделя</div>
         <div>

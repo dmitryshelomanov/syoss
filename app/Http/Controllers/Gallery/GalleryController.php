@@ -26,14 +26,14 @@ class GalleryController extends Controller
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      * Получить все фотки + лайки от юзера авторизированного
      */
-    public function allPhoto($skip = 0, $take = 10, $current = true, $week = 1)
+    public function allPhoto($skip = 0, $take = 10, $week = null)
     {
         $data = $this->battle
             ->photoInfo()
             ->withCount('likes')
             ->withCount('winners')
             ->orderBy($this->request->order === 'likes' ? 'likes_count' : 'id', 'desc')
-            ->published($current, $week)
+            ->published($week)
             ->skip($this->request->skip ? $this->request->skip : $skip)
             ->take($this->request->take ? $this->request->take : $take)
             ->get();
@@ -47,13 +47,36 @@ class GalleryController extends Controller
     }
 
     /**
+     * Получить победителей по неделе
+     * @return mixed
+     */
+    public function getWinners()
+    {
+        $week = $this->request->week ? $this->request->week : DateHelper::currentStep();
+        $data = $this->battle
+            ->where([
+                ['winner', 1],
+                ['week', $week]
+            ])
+            ->photoInfo()
+            ->get();
+        if ($this->request->ajax()) {
+            return response()->json(
+                $this->ajaxRender->render($data, $this->request->layout)
+            );
+        }
+        return $data;
+    }
+    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * вывести шаблон
      */
     public function show()
     {
         return view('website.gallery', [
-            'photo' => $this->allPhoto()
+            'photo' => $this->allPhoto(
+                0, 50, $this->request->week
+            )
         ]);
     }
 }

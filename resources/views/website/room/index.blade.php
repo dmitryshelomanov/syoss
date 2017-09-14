@@ -9,7 +9,7 @@
                 Выберите образ, который подходит именно Вам!
             </span>
         </div>
-        @include('website.common.week')
+        @include('website.common.week', ["type" => "room"])
     </div>
 
     <div class="container-flex container-large">

@@ -4,19 +4,22 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Battle;
+use Illuminate\Http\Request;
+use Mobile_Detect as Detection;
 use DateHelper;
 use Auth;
-use Mobile_Detect as Detection;
 
 class HomeController extends Controller
 {
     private $battle;
     private $detect;
+    private $request;
 
-    public function __construct(Battle $battle, Detection $detect)
+    public function __construct(Battle $battle, Detection $detect, Request $request)
     {
         $this->battle = $battle;
         $this->detect = $detect;
+        $this->request = $request;
     }
 
     public function getLastPhoto($count)
@@ -32,7 +35,10 @@ class HomeController extends Controller
     public function getWinner()
     {
         return $this->battle
-                ->where('winner', 1)
+                ->where([
+                    ['winner', 1],
+                    ['week', DateHelper::currentStep()]
+                ])
                 ->photoInfo()
                 ->get();
     }
